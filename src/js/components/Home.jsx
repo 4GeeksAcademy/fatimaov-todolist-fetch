@@ -50,7 +50,6 @@ const Home = () => {
 			<div className={`border border-top-0 border-1 border-dark mx-auto ${styles.noteUnderOne}`}></div>
 			<div className={`border border-top-0 border-1 border-dark mx-auto ${styles.noteUnderTwo}`}></div>
 		</>
-
 	);
 };
 

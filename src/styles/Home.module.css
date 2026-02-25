@@ -5,13 +5,10 @@
 .noteUnderOne {
     height: 5px;
     width: 490px;
-    
 }
 
 .noteUnderTwo {
     height: 5px;
     width: 480px;
-    box-shadow: 2px 2px 5px  rgba(0, 0, 0, 0.411);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.411);
 }
-
-

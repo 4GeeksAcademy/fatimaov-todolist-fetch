@@ -10,7 +10,7 @@ function Tasks({ tasks, removeTask }) {
                     {task.task}
                     <div className={`position-absolute w-100 h-100 start-0 top-0 d-flex align-items-center justify-content-end ${styles.btnClose}`}>
                         <button
-                            className={`btn btn-close me-2 `}
+                            className={`btn btn-close me-2`}
                             onClick={() => removeTask(task.id)}
                         >
                         </button>

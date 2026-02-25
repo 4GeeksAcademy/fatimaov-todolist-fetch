@@ -9,7 +9,3 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
-
-body {
-    font-family: var(--bs-font-sans-serif);
-}
