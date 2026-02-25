@@ -3,14 +3,15 @@ import React from "react";
 function NewTaskForm({ addNewTask, newTask, setNewTask }) {
     return (
         <>
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={(e) => e.preventDefault()} className="input-group">
                 <input
                     type="text"
                     onChange={(e) => setNewTask(e.target.value)}
                     value={newTask}
-                    placeholder="new task"
+                    placeholder="What needs to be done?"
+                    className="form-control border-0"
                 />
-                <button onClick={addNewTask}>Add</button>
+                <button onClick={addNewTask} className="btn btn-primary">Add</button>
             </form>
         </>
     )
