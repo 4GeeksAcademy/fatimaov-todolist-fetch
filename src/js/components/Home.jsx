@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tasks from "./Tasks";
 import NewTaskForm from "./NewTaskForm";
 import todos from "../data"
@@ -29,6 +29,15 @@ const Home = () => {
 	function handleRemove(id) {
 		return setTasks(tasks.filter(task => task.id !== id));
 	}
+
+	const prueba = {
+		label: "hola"
+	}
+
+
+
+	
+
 
 	return (
 		<>
