@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Tasks from "./Tasks";
 import NewTaskForm from "./NewTaskForm";
-import todos from "../data"
 import generateId from "../generateId";
 import styles from "../../styles/Home.module.css"
+import todos from "../apiService";
+import {createUser, readUser, removeUser, addTodo, deleteTask, readTodos} from "../apiService";
 
 const Home = () => {
 	const [tasks, setTasks] = useState(() => todos);
+	console.log("useState",tasks)
 	const [newTask, setNewTask] = useState('');
 
 	// Add new task
@@ -26,17 +28,10 @@ const Home = () => {
 	}
 
 	// Remove Task
-	function handleRemove(id) {
-		return setTasks(tasks.filter(task => task.id !== id));
+	async function handleRemove(id) {
+		await deleteTask(id)
+		return setTasks(await readTodos())
 	}
-
-	const prueba = {
-		label: "hola"
-	}
-
-
-
-	
 
 
 	return (

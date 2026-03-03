@@ -7,7 +7,7 @@ function Tasks({ tasks, removeTask }) {
         <>
             {tasks.map((task) => {
                 return <li className="list-group-item d-flex justify-content-between rounded-0 border-0 position-relative display-6" key={task.id}>
-                    {task.task}
+                    {task.label}
                     <div className={`position-absolute w-100 h-100 start-0 top-0 d-flex align-items-center justify-content-end ${styles.btnClose}`}>
                         <button
                             className={`btn btn-close me-2`}
