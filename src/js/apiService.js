@@ -18,7 +18,7 @@ const seedData = [
 export async function createUser() {
     const urlToFetch = baseUrl + usersEndPoint + userName;
     try {
-        const response = await fetch(urlToFetch, {
+        await fetch(urlToFetch, {
             method: 'POST',
             body: '',
             headers: {
@@ -34,7 +34,7 @@ export async function createUser() {
 export async function removeUser() {
     const urlToFetch = baseUrl + usersEndPoint + userName;
     try {
-        const response = await fetch(urlToFetch, {
+        await fetch(urlToFetch, {
             method: 'DELETE',
             body: '',
             headers: {
@@ -61,19 +61,18 @@ async function readUser() {
 // POST seedData
 async function addSeedData() {
     const urlToFetch = baseUrl + todosEndPoint + userName;
-    let taskResponse = '';
-    try {
-        for (let i = 0; i < seedData.length; i++) {
-            taskResponse = await fetch(urlToFetch, {
+    for (let i = 0; i < seedData.length; i++) {
+        try {
+            await fetch(urlToFetch, {
                 method: 'POST',
                 body: JSON.stringify(seedData[i]),
                 headers: {
                     "Content-Type": "application/json"
                 }
             })
+        } catch (error) {
+            console.log(error)
         }
-    } catch (error) {
-        console.log(error)
     }
 }
 
@@ -81,7 +80,7 @@ async function addSeedData() {
 export async function addTodo(label) {
     const urlToFetch = baseUrl + todosEndPoint + userName;
     try {
-        const response = await fetch(urlToFetch, {
+        await fetch(urlToFetch, {
             method: 'POST',
             body: JSON.stringify({ label: label }),
             headers: {
