@@ -117,7 +117,7 @@ export async function deleteTodo(id) {
 }
 
 // Initializer
-async function todos() {
+export async function todosInit() {
     try {
         let response = await readUser();
         if (response.ok === false) {
@@ -137,4 +137,4 @@ async function todos() {
     }
 }
 
-export default todos;
+

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import Tasks from "./Tasks";
 import NewTaskForm from "./NewTaskForm";
 import styles from "../../styles/Home.module.css"
-import todos from "../apiService";
-import { createUser, removeUser, addTodo, deleteTodo, readTodos } from "../apiService";
+import { todosInit, createUser, removeUser, addTodo, deleteTodo, readTodos } from "../apiService";
 
 const Home = () => {
 	const [tasks, setTasks] = useState([]);
@@ -12,8 +11,8 @@ const Home = () => {
 	// Add initial todos
 	useEffect(() => {
 		async function loadTodos() {
-			const todosInit = await todos();
-			setTasks(todosInit);
+			const todos = await todosInit();
+			setTasks(todos);
 		}
 		loadTodos();
 	}, [])
