@@ -14,7 +14,8 @@ import TestAPI from './components/TestAPI';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Home/>
-    <TestAPI/>
+    <>
+      <Home />
+    </>
   </React.StrictMode>,
 )

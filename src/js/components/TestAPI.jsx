@@ -23,18 +23,22 @@ function TestAPI() {
         try {
             let response = await readUser();
             if (response.ok === false) {
-                console.log('checkUser: user doesnt exist')
-                console.log('checkUser: creating user...')
                 await createUser();
                 response = await readUser();
             }
             let jsonResponse = await response.json();
             if (jsonResponse.todos.length === 0) {
-                console.log('checkUser: no tasks')
                 await addSeedData();
                 response = await readUser();
                 jsonResponse = await response.json();
-                console.log('checkUser: tasks added')
+            } else {
+                const userTodosId = jsonResponse.todos.map((todo) => todo.id)
+                for (const id in userTodosId) {
+                    await deleteTodo(userTodosId[id]);
+                }
+                await addSeedData();
+                response = await readUser();
+                jsonResponse = await response.json();
             }
             const todos = jsonResponse.todos;
             return todos;
@@ -48,17 +52,13 @@ function TestAPI() {
         const urlToFetch = baseUrl + usersEndPoint + userName;
         try {
             const response = await fetch(urlToFetch)
-            if (response.ok) {
-                console.log(`readUser: ${response.ok}`)
-                return response;
-            } else {
-                console.log(`readUser: ${response.ok}`)
-                return response;
-            }
+            console.log(response.ok)
+            return response;
         } catch (error) {
             console.log(error)
         }
     }
+
 
     // READ todos
     async function readTodos() {
@@ -100,30 +100,24 @@ function TestAPI() {
                     "Content-Type": "application/json"
                 }
             })
-            console.log('createUser: user created')
         } catch (error) {
             console.log('Request failed', error.message)
         }
     }
 
     // POST Todos
-    async function addSeedData() {
+    async function addTodo(label) {
         const urlToFetch = baseUrl + todosEndPoint + userName;
-        let taskResponse = '';
         try {
-            for (let i = 0; i < seedData.length; i++) {
-                taskResponse = await fetch(urlToFetch, {
-                    method: 'POST',
-                    body: JSON.stringify(seedData[i]),
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
-                if (taskResponse.ok) {
-                    console.log(`addSeedData: Task ${i + 1} added`)
-                } else {
-                    console.log(`addSeedData: Task ${i + 1} failed`)
+            const response = await fetch(urlToFetch, {
+                method: 'POST',
+                body: JSON.stringify({ label: label }),
+                headers: {
+                    "Content-Type": "application/json"
                 }
+            })
+            if (response.ok) {
+                console.log(`task ${label} added`)
             }
         } catch (error) {
             console.log(error)
@@ -146,7 +140,7 @@ function TestAPI() {
                 const jsonResponse = await response.json()
                 console.log(jsonResponse.detail)
             } else {
-                console.log(`removeUser: user removed`)
+                console.log(`User removed`)
             }
 
         } catch (error) {
@@ -156,21 +150,19 @@ function TestAPI() {
 
 
     // DELETE todo
-    async function deleteTask(id) {
+    async function deleteTodo(id) {
         const urlToFetch = baseUrl + todosEndPoint + id;
         const userTodos = await readTodos();
         let check = undefined;
-        for (const userTodosIndex in userTodos) {
-            if (userTodos[userTodosIndex].id === id) {
+        for (const arrId in userTodos) {
+            if (userTodos[arrId].id === id) {
                 check = true;
             } else {
                 continue;
             }
         }
-        console.log(id)
 
         if (check) {
-            console.log(`user has that todo with index ${id}`)
             try {
                 const response = await fetch(urlToFetch, {
                     method: 'DELETE',
@@ -180,13 +172,13 @@ function TestAPI() {
                     }
                 })
                 if (response.ok) {
-                    console.log('task deleted')
+                    console.log(`DELETED Todo with index ${id}`)
                 }
             } catch (error) {
                 console.log(error)
             }
         } else {
-            console.log(`user doesn't have that todo with index ${id}`)
+            console.log(`Todo with index ${id} doesn't exist`)
         }
 
     }
@@ -199,7 +191,7 @@ function TestAPI() {
             <button onClick={readUser}>Read user</button>
             <button onClick={readTodos}>Read TODOS</button>
             <button onClick={() => addTodo('Have breakfast')}>Add new task</button>
-            <button onClick={() => deleteTask(10)}>Delete task</button>
+            <button onClick={() => deleteTodo(20)}>Delete task</button>
         </>
     )
 }

@@ -11,7 +11,7 @@ function NewTaskForm({ addNewTask, newTask, setNewTask }) {
                     placeholder="What needs to be done?"
                     className="form-control border-0"
                 />
-                <button onClick={addNewTask} className="btn btn-primary">Add</button>
+                <button onClick={addNewTask} className="btn btn-primary rounded">Add</button>
             </form>
         </>
     )
