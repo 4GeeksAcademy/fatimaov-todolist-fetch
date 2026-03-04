@@ -138,4 +138,4 @@ async function todos() {
     }
 }
 
-export default await todos();
+export default todos;

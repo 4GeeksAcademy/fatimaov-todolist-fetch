@@ -6,8 +6,17 @@ import todos from "../apiService";
 import { createUser, removeUser, addTodo, deleteTodo, readTodos } from "../apiService";
 
 const Home = () => {
-	const [tasks, setTasks] = useState(todos);
+	const [tasks, setTasks] = useState([]);
 	const [newTask, setNewTask] = useState('');
+	
+	// Add initial todos
+	useEffect(() => {
+		async function loadTodos() {
+			const todosInit = await todos();
+			setTasks(todosInit);
+		}
+		loadTodos();
+	}, [])
 
 	// Add new task
 	async function handleClickAddNewTask() {
@@ -18,7 +27,7 @@ const Home = () => {
 		setNewTask('')
 	}
 
-	// Remove Task
+	// Remove task
 	async function handleRemove(id) {
 		await deleteTodo(id)
 		return setTasks(await readTodos())
@@ -47,8 +56,8 @@ const Home = () => {
 					/>
 				</ul>
 				<div className="d-flex justify-content-between align-items-end">
-				<p className="mt-5 mb-0 text-start fw-light">{tasks.length} items left</p>
-				<button className="btn btn-danger btn-sm" onClick={handleRemoveAll}>Delete all</button>
+					<p className="mt-5 mb-0 text-start fw-light">{tasks.length} items left</p>
+					<button className="btn btn-danger btn-sm" onClick={handleRemoveAll}>Delete all</button>
 				</div>
 			</div>
 			<div className={`border border-top-0 border-1 border-dark mx-auto ${styles.noteUnderOne}`}></div>
