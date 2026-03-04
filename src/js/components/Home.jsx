@@ -39,6 +39,11 @@ const Home = () => {
 		setTasks(await readTodos())
 	}
 
+	// Add disabled button attribute functionality
+	useEffect(() => {
+		tasks.length === 0 ? document.getElementById('delete-all').disabled =  true : document.getElementById('delete-all').disabled =  false;
+	}, [tasks])
+
 	return (
 		<>
 			<h1 className="display-1 text-center mt-5 mb-3">todos</h1>
@@ -56,7 +61,7 @@ const Home = () => {
 				</ul>
 				<div className="d-flex justify-content-between align-items-end">
 					<p className="mt-5 mb-0 text-start fw-light">{tasks.length} items left</p>
-					<button className="btn btn-danger btn-sm" onClick={handleRemoveAll}>Delete all</button>
+					<button id="delete-all" className="btn btn-danger btn-sm" onClick={handleRemoveAll}>Delete all</button>
 				</div>
 			</div>
 			<div className={`border border-top-0 border-1 border-dark mx-auto ${styles.noteUnderOne}`}></div>
